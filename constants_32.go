@@ -20,38 +20,8 @@ const (
 	// The size of the Goldilocks field, in bytes.
 	fieldBytes = fieldBits / 8 // 56
 
-	// The size of the Goldilocks scalars, in bits.
-	scalarBits = fieldBits - 2 // 446
-	// The size of the Goldilocks field, in bytes.
-	scalarBytes = (scalarBits + 7) / 8 // 56
-
 	wordBits = 32 // 32-bits
 	//wordBits = 64 // 64-bits
-
-	// The number of words in the Goldilocks field.
-	// 14 for 32-bit and 7 for 64-bits
-	scalarWords = (scalarBits + wordBits - 1) / wordBits
-
-	bitSize  = scalarBits
-	byteSize = fieldBytes
-
-	symKeyBytes  = 32
-	pubKeyBytes  = fieldBytes
-	privKeyBytes = 2*fieldBytes + symKeyBytes // 144
-
-	signatureBytes = 2 * fieldBytes // 112
-
-	// Comb configuration
-	combNumber  = uint(8)
-	combTeeth   = uint(4)
-	combSpacing = uint(14)
-
-	// DecafComb configuration
-	decafCombNumber  = uint(5)
-	decafCombTeeth   = uint(5)
-	decafCombSpacing = uint(18)
-
-	uintZero = uint(0)
 
 	montgomeryFactor = word(0xae918bc5)
 )
@@ -70,27 +40,6 @@ var (
 		0xac, 0xdc, 0x4a, 0x73, 0x48, 0x87, 0x3b, 0x44,
 		0x49, 0x7a, 0x5b, 0xb2, 0xc0, 0xc0, 0xfe, 0x12,
 	})
-
-	//ScalarQ is the prime order of the curve.
-	ScalarQ = &decafScalar{
-		0xab5844f3, 0x2378c292,
-		0x8dc58f55, 0x216cc272,
-		0xaed63690, 0xc44edb49,
-		0x7cca23e9, 0xffffffff,
-		0xffffffff, 0xffffffff,
-		0xffffffff, 0xffffffff,
-		0xffffffff, 0x3fffffff,
-	}
-
-	scalarR2 = &decafScalar{
-		0x049b9b60, 0xe3539257,
-		0xc1b195d9, 0x7af32c4b,
-		0x88ea1859, 0x0d66de23,
-		0x5ee4d838, 0xae17cf72,
-		0xa3c47c44, 0x1a9cc14b,
-		0xe4d070af, 0x2052bcb7,
-		0xf823b729, 0x3402a939,
-	}
 
 	//BasePoint is the basepoint of the curve.
 	BasePoint = &twExtendedPoint{
