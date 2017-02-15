@@ -222,17 +222,16 @@ func decafInvertNonUniformElligator(p *twExtendedPoint, hint word) ([]byte, word
 	return recovered[:], succ
 }
 
-//func decafInvertUniformElligator(p *pointT, hint dword_t, ser serialized) ([]byte, dword_t) {
-//
-//	p2 := &pointT{
-//		x: new(bigNumber),
-//		y: new(bigNumber),
-//		z: new(bigNumber),
-//		t: new(bigNumber),
-//	}
-//
-//	p1, _ := decafNonunifromHashToCurve(ser)
-//	p2.decafPointSub(p, p1)
-//	hash, succ := decafInvertNonUniformElligator(p2, hint)
-//	return hash, succ
-//}
+func decafInvertUniformElligator(p *twExtendedPoint, hint word, in []byte) ([]byte, word) {
+
+	var in1 [56]byte
+	copy(in1[:], in[56:])
+	var in2 []byte
+	copy(in2[:], in[:56])
+
+	pt2, _ := decafNonUnifromHashToCurve(in1)
+	pt2.sub(p, pt2)
+	var succ word
+	in2, succ = decafInvertNonUniformElligator(pt2, hint)
+	return in2[:], succ
+}
