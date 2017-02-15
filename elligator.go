@@ -165,10 +165,10 @@ func decafUniformFromHashToCurve(in []byte) (*twExtendedPoint, word) {
 	}
 
 	var in1 [56]byte
-	copy(in1[:], in[:])
+	copy(in1[:], in[:56])
 
 	var in2 [56]byte
-	copy(in2[:], in[:56])
+	copy(in2[:], in[56:])
 
 	p1, ret1 := decafNonUnifromHashToCurve(in1)
 	p2, ret2 := decafNonUnifromHashToCurve(in2)
