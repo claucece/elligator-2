@@ -42,12 +42,42 @@ package ed448
 //	printf("hint n:%#x\n", hint);
 //
 //	print_point(p,"g2 found");
+//
+//	// valid point
+//      decaf_bool_t val;
+//	val = decaf_448_point_valid(p);
+//
+//      //orderQ * P == identity
+//	decaf_448_point_t q;
+//
+//	static const decaf_448_scalar_t sc_p = {{{
+//	SC_LIMB(0x2378c292ab5844f3),
+//		SC_LIMB(0x216cc2728dc58f55),
+//		SC_LIMB(0xc44edb49aed63690),
+//		SC_LIMB(0xffffffff7cca23e9),
+//		SC_LIMB(0xffffffffffffffff),
+//		SC_LIMB(0xffffffffffffffff),
+//		SC_LIMB(0x3fffffffffffffff)
+//	}}};
+//
+//	decaf_448_point_scalarmul(q, p, sc_p);
+//	print_point(q,"identity");
+//
+//      // decoding and encoding
+//	printf("VAL n:%#llx\n", val);
+//
+//	decaf_bool_t valid;
+//	unsigned char b[56];
+//	decaf_448_point_encode(b, p);
+//	valid = decaf_448_point_decode(p, b, DECAF_FALSE);
+//
+//	printf("valid!! n:%#llx\n", valid);
 //}
-
+//
 // will give
-
+//
 //hint n:0x24
-
+//
 //g2 found :
 //0x00ac97f43cf14237,
 //0x00dc98db8a9543bc,
