@@ -70,7 +70,6 @@ func (s *Ed448Suite) TestSquareN(c *C) {
 }
 
 func (s *Ed448Suite) TestInvert(c *C) {
-	n := &bigNumber{}
 	x := &bigNumber{
 		0x04516644, 0x01430f14,
 		0x072318d2, 0x0b1c2096,
@@ -93,7 +92,7 @@ func (s *Ed448Suite) TestInvert(c *C) {
 		0x08099dc5, 0x0cf9ca3d,
 	}
 
-	c.Assert(n.invert(x), DeepEquals, y)
+	c.Assert(invert(x), DeepEquals, y)
 }
 
 func (s *Ed448Suite) TestNegate(c *C) {

@@ -79,10 +79,10 @@ func (n *bigNumber) mulWSignedCurveConstant(x *bigNumber, c sdword) *bigNumber {
 	return r.sub(bigZero, r)
 }
 
-func (n *bigNumber) invert(x *bigNumber) *bigNumber {
+func invert(x *bigNumber) *bigNumber {
 	t1, t2 := &bigNumber{}, &bigNumber{}
-	t1.square(x)
-	t2.isr(t1)
+	t1.square(x) // x ^ 2
+	t2.isr(t1)   // -+1 sqrt(o ^ 2) => +- 1 / o
 	t1.square(t2)
 	t2.mul(t1, x)
 	y := t2.copy()
