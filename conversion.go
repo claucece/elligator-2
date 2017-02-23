@@ -44,21 +44,13 @@ func (p *twExtendedPoint) toAffine() *affinePoint {
 		return out
 	}
 
-	//tmp1, tmp2 := &bigNumber{}, &bigNumber{}
-	//tmp0 := invert(p.z)
-	//tmp1.square(tmp0)
-
-	//out.x.mul(p.x, tmp1).strongReduce()
-	//tmp2.mul(tmp1, tmp0)
-	//out.y.mul(p.y, tmp2).strongReduce()
-
 	s, t := &bigNumber{}, &bigNumber{}
 	r := invert(p.z)
 	s.square(r)
 
-	out.x.mul(p.x, s)
+	out.x.mul(p.x, s).strongReduce()
 	t.mul(p.y, s)
-	out.y.mul(t, r)
+	out.y.mul(t, r).strongReduce()
 
 	return out
 }
