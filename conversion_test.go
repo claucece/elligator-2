@@ -41,6 +41,10 @@ func (s *Ed448Suite) Test_IsValidAffine(c *C) {
 	serializeAffine(dst[:], affg2.x)
 	serializeAffine(dst1[:], affg2.y)
 
+	fmt.Println(" \n")
+	fmt.Printf("%v\n", dst)
+	fmt.Printf("%v\n", dst1)
+
 	dst2 := make([]byte, hex.EncodedLen(len(dst)))
 	hex.Encode(dst2, dst[:])
 
