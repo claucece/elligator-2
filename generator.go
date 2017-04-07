@@ -56,7 +56,6 @@ func findGenerator() *twExtendedPoint {
 }
 
 func findGeneratorElligator() (*twExtendedPoint, word) {
-
 	var encodedBase [56]byte
 	var encodedPoint [56]byte
 	var seed [64]byte       //sure?

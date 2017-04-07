@@ -24,7 +24,21 @@ const (
 	//wordBits = 64 // 64-bits
 
 	montgomeryFactor = word(0xae918bc5)
+
+	scalarWords = (446 + wordBits - 1) / wordBits
+	combNumber  = uint(0x08)
+	combTeeth   = uint(0x04)
+	combSpacing = uint(0x0e)
+
+	pShift   = 30
+	wordsInP = 14
 )
+
+var curvePrimeOrder = barrettPrime{
+	wordsInP: wordsInP,
+	pShift:   pShift,
+	lowWords: lowWords,
+}
 
 var (
 	bigZero = &bigNumber{0}
