@@ -19,22 +19,20 @@ func generateKeys(rand io.Reader) (publicKey, privateKey, error) {
 	}
 
 	digest := sha3.Sum512(priv[:56])
-	// XXX: change the numbers
-	// XXX: test this
-	digest[55] &= 255
-	digest[0] &= 127
-	digest[0] |= 64
+	digest[55] &= 0
+	digest[0] &= 0
+	digest[0] |= 1
 
 	sc := &decafScalar{}
 	barrettDeserializeAndReduce(sc[:], digest[:], &curvePrimeOrder)
-	b := multiplyByBase(*sc)
-	ok := b.OnCurve()
+	p := multiplyByBase(*sc)
+	ok := p.OnCurve()
 	if !ok {
 		return nil, nil, err
 	}
 
-	bb := untwist(b).serializeExtensible()
-	serializeBytes(pub, bb)
+	pubBytes := untwist(p).serializeExtensible()
+	serializeBytes(pub, pubBytes)
 	// another validity here
 	return priv, pub, nil
 }
@@ -50,7 +48,6 @@ func generateKeys2(rand io.Reader) (publicKey, privateKey, error) {
 	digest := sha3.Sum512(priv[:56])
 
 	secretKey := decafScalar{}
-
 	barrettDeserializeAndReduce(secretKey[:], digest[:], &curvePrimeOrder)
 	secretKey.serialize(priv)
 
