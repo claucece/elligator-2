@@ -66,6 +66,7 @@ func generateKeys2(rand io.Reader) (publicKey, privateKey, error) {
 // On C
 
 // XXX: change the types
+//
 //static void inline
 //random_bytes_long_term(void * const buf, const size_t size) {
 //#ifndef FAST_RANDOM
@@ -79,7 +80,7 @@ func generateKeys2(rand io.Reader) (publicKey, privateKey, error) {
 //random_bytes_strong(void * const buf, const size_t size) {
 //  gcry_randomize(buf, size, GCRY_STRONG_RANDOM);
 //}
-
+//
 // typedef unsigned char symmetric_key_t[32];
 //
 //int
@@ -121,7 +122,11 @@ func generateKeys2(rand io.Reader) (publicKey, privateKey, error) {
 //    mask_t ok;
 //    ok = validate_tw_extensible(exta)
 //
-//    untwist_and_double_and_serialize(pk, exta);
+//    tw_extensible_a_t tmp;
+//    twist_and_double(tmp, exta);
+//
+//    field_a_t pk;
+//    serialize_extensible(pk, tmp);
 //
 //    field_serialize(&privkey->opaque[446], pk);
 //
