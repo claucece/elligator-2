@@ -81,7 +81,7 @@ func generateKeys2(rand io.Reader) (publicKey, privateKey, error) {
 //  gcry_randomize(buf, size, GCRY_STRONG_RANDOM);
 //}
 //
-// typedef unsigned char symmetric_key_t[32];
+//typedef unsigned char symmetric_key_t[32];
 //
 //int
 //derive_private_key (
@@ -132,3 +132,67 @@ func generateKeys2(rand io.Reader) (publicKey, privateKey, error) {
 //
 //    return GOLDI_EOK;
 //}
+//
+//
+//static void inline
+//random_bytes_long_term(void * const buf, const size_t size) {
+//#ifndef FAST_RANDOM
+//  gcry_randomize(buf, size, GCRY_VERY_STRONG_RANDOM);
+//#else
+//  gcry_randomize(buf, size, GCRY_STRONG_RANDOM);
+//#endif
+//}
+//
+//static void inline
+//random_bytes_strong(void * const buf, const size_t size) {
+//  gcry_randomize(buf, size, GCRY_STRONG_RANDOM);
+//}
+//
+//
+//struct key_pair_t {
+//    uint8_t pub[56];
+//    uint8_t priv[56];
+//};
+//
+//typedef unsigned char random_data_t[DECAF_448_SYMMETRIC_KEY_BYTES];
+//static const int CORRUPT = 44801;
+//static const int OK = 0;
+//static const mask_t MASK_FAILURE = 0, MASK_SUCCESS = -(mask_t)1
+//
+//int
+//derive_private_key (
+//    struct key_pair_t *pair,
+//) {
+//
+//    random_data_t proto;
+//    random_bytes_strong(proto,sizeof(random_data_t));
+//
+//    unsigned char skb[64];
+//    word_t sk[14];
+//    const char *magic = "derive_private_key";
+//
+//    sha512_ctx_a_t ctx;
+//    tw_extensible_a_t exta;
+//    field_a_t pk;
+//    mask_t ok;
+//
+//    sha512_init(ctx);
+//    sha512_update(ctx, (const unsigned char *)magic, strlen(magic));
+//    sha512_update(ctx, proto, sizeof(random_data_t));
+//    field_hash_final(ctx, (unsigned char *)skb);
+//
+//    barrett_deserialize_and_reduce(sk, skb, sizeof(skb), &curve_prime_order);
+//    barrett_serialize(pair->priv, sk, 56);
+//
+//    scalarmul_fixed_base(exta, sk, GOLDI_SCALAR_BITS, &goldilocks_global.fixed_base);
+//    succ = validate_tw_extensible(exta);
+//    if (succ != MASK_SUCCESS) { // how in C?
+//        return CORRUPT;
+//    }
+//
+//    untwist_and_double_and_serialize(pk, exta);
+//    field_serialize(&pair->pub[56], pk);
+//
+//    return OK;
+//}
+//
