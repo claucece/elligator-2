@@ -165,3 +165,8 @@ func (n *bigNumber) String() string {
 func (n *bigNumber) limbs() []word {
 	return n[:]
 }
+
+func lowBit(x *bigNumber) word {
+	x.strongReduce()
+	return -(x[0] & 1)
+}

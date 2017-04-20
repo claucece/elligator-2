@@ -181,3 +181,24 @@ func decafDecode(dst *twExtendedPoint, src serialized, useIdentity bool) word {
 
 	return succ
 }
+
+func (p *twExtendedPoint) isOnCurve() bool {
+	a, b, c := &bigNumber{}, &bigNumber{}, &bigNumber{}
+	// x * y == z * t
+	a.mul(p.x, p.y)
+	b.mul(p.z, p.t)
+	valid := a.decafEq(b)
+
+	// y^2 - x^2 == z^2 - t^2 * (1 - D)
+	a.square(p.x)
+	b.square(p.y)
+	a.sub(b, a)
+	b.square(p.t)
+	c.mulW(b, 1-edwardsD)
+	b.square(p.z)
+	b.sub(b, c)
+	valid &= a.decafEq(b)
+	valid &= ^(p.z.decafEq(bigZero))
+
+	return valid == decafTrue
+}
